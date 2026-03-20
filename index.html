@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gadget Hub | Admin Dashboard</title>
+    <title>Gadget Hub | Smart Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen pb-20">
@@ -11,57 +11,50 @@
     <div class="max-w-4xl mx-auto py-10 px-4">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-indigo-100 mb-10">
             <h2 class="text-3xl font-black text-indigo-700 mb-6 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-                Admin Panel
+                🚀 Gadget Hub Admin
             </h2>
             
             <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="md:col-span-2">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Product Name</label>
-                    <input type="text" id="pName" placeholder="e.g. iPhone 15 Pro Max" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    <input type="text" id="pName" placeholder="e.g. Apple Watch Series 9" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" required>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Select Category</label>
-                    <select id="pCategory" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-                        <option value="Mobiles">Mobiles</option>
-                        <option value="Laptops">Laptops</option>
-                        <option value="Audio">Audio</option>
-                        <option value="Watches">Watches</option>
-                    </select>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Category</label>
+                    <select id="pCategory" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-semibold">
+                        <option value="Mobiles">📱 Mobiles</option>
+                        <option value="Laptops">💻 Laptops</option>
+                        <option value="Audio">🎧 Audio (Earbuds/Speakers)</option>
+                        <option value="watches">⌚ watches</option> </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Image URL</label>
-                    <input type="url" id="pImage" placeholder="https://example.com/image.jpg" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Select Photo</label>
+                    <input type="file" id="pImageFile" accept="image/*" class="w-full px-4 py-2 rounded-xl border border-gray-200" required>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Sale Price (₹)</label>
-                    <input type="number" id="pPrice" placeholder="99000" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Price (₹)</label>
+                    <input type="number" id="pPrice" placeholder="24999" class="w-full px-4 py-3 rounded-xl border border-gray-200" required>
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Affiliate Link</label>
-                    <input type="url" id="pLink" placeholder="https://amazon.to/your-id" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    <input type="url" id="pLink" placeholder="https://amzn.to/..." class="w-full px-4 py-3 rounded-xl border border-gray-200" required>
                 </div>
 
                 <div class="md:col-span-2">
-                    <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-xl transition-all shadow-lg uppercase tracking-widest">
-                        Upload to Website
+                    <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest disabled:bg-gray-400 transition-all">
+                        Compress & Upload Product
                     </button>
                 </div>
             </form>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <h3 class="text-2xl font-black text-gray-800 mb-6 uppercase tracking-tight">Manage Products</h3>
-            <div id="adminProductList" class="space-y-4">
-                <p class="text-gray-400">Loading products...</p>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 px-2 uppercase">Live Products</h3>
+        <div id="adminProductList" class="grid grid-cols-1 gap-4">
             </div>
-        </div>
     </div>
 
     <script type="module">
@@ -72,84 +65,100 @@
             apiKey: "AIzaSyD5pKW4Fi6CfQzW58RBoPA5fIL4JIfJoH0",
             authDomain: "gadget-hub-3b6e5.firebaseapp.com",
             projectId:  "gadget-hub-3b6e5",
-            storageBucket: "gadget-hub-3b6e5.firebasestorage.app",
-            messagingSenderId: "393761011089",
             appId: "1:393761011089:web:0c6ff49e65d05aa3ca9630"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const form = document.getElementById('productForm');
-        const btn = document.getElementById('submitBtn');
-        const adminList = document.getElementById('adminProductList');
+        // --- IMAGE COMPRESSOR ---
+        async function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 600; // Mobile view ke liye 600px kafi hai
+                        let width = img.width;
+                        let height = img.height;
 
-        // 1. UPLOAD LOGIC
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.6)); // 60% quality for extra speed
+                    };
+                };
+            });
+        }
+
+        // --- FORM SUBMIT ---
+        const form = document.getElementById('productForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            btn.innerText = "Processing...";
-            btn.disabled = true;
+            const btn = document.getElementById('submitBtn');
+            const file = document.getElementById('pImageFile').files[0];
 
             try {
+                btn.innerText = "🔄 Compressing...";
+                btn.disabled = true;
+
+                const compressedImg = await compressImage(file);
+
+                btn.innerText = "📤 Uploading...";
                 await addDoc(collection(db, "products"), {
                     name: document.getElementById('pName').value,
                     category: document.getElementById('pCategory').value,
-                    image: document.getElementById('pImage').value,
+                    image: compressedImg,
                     link: document.getElementById('pLink').value,
                     price: document.getElementById('pPrice').value,
                     createdAt: serverTimestamp()
                 });
-                alert("Product live ho gaya!");
+
+                alert("Watch/Gadget added successfully! 🔥");
                 form.reset();
-            } catch (error) {
-                alert("Error: " + error.message);
+            } catch (err) {
+                alert("Error: " + err.message);
             } finally {
-                btn.innerText = "Upload to Website";
+                btn.innerText = "Compress & Upload Product";
                 btn.disabled = false;
             }
         });
 
-        // 2. FETCH & SHOW PRODUCTS IN ADMIN PANEL
-        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
-            adminList.innerHTML = '';
-            if(snapshot.empty) {
-                adminList.innerHTML = '<p class="text-gray-400">No products found.</p>';
-                return;
-            }
-            snapshot.forEach((productDoc) => {
-                const p = productDoc.data();
-                const id = productDoc.id;
-                
-                adminList.innerHTML += `
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-indigo-200 transition-all">
+        // --- FETCH & DELETE ---
+        onSnapshot(query(collection(db, "products"), orderBy("createdAt", "desc")), (snap) => {
+            const list = document.getElementById('adminProductList');
+            list.innerHTML = '';
+            snap.forEach(docSnap => {
+                const p = docSnap.data();
+                list.innerHTML += `
+                    <div class="bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100">
                         <div class="flex items-center gap-4">
-                            <img src="${p.image}" class="w-12 h-12 object-contain bg-white rounded-lg border">
+                            <img src="${p.image}" class="w-14 h-14 object-cover rounded-lg shadow-inner bg-gray-50">
                             <div>
-                                <h4 class="font-bold text-gray-800 text-sm">${p.name}</h4>
-                                <p class="text-xs text-gray-500">${p.category} | ₹${p.price}</p>
+                                <h3 class="font-bold text-gray-800 text-sm leading-tight">${p.name}</h3>
+                                <p class="text-xs text-indigo-500 font-semibold">${p.category} • ₹${p.price}</p>
                             </div>
                         </div>
-                        <button onclick="deleteProduct('${id}')" class="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white p-2 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button onclick="deleteProduct('${docSnap.id}')" class="text-red-400 hover:text-red-600 p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                         </button>
-                    </div>
-                `;
+                    </div>`;
             });
         });
 
-        // 3. DELETE LOGIC
         window.deleteProduct = async (id) => {
-            if(confirm("Kya aap is product ko delete karna chahte hain?")) {
-                try {
-                    await deleteDoc(doc(db, "products", id));
-                    alert("Product hata diya gaya!");
-                } catch (error) {
-                    alert("Delete karne mein error aaya!");
-                }
-            }
+            if(confirm("Delete karna hai?")) await deleteDoc(doc(db, "products", id));
         };
     </script>
 </body>
